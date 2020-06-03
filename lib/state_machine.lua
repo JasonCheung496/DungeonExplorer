@@ -1,4 +1,14 @@
-StateMachine = Class{}
+StateMachine = {}
+StateMachine.__index = StateMachine
+
+setmetatable(StateMachine, {
+  __call = function (StateMachine, ...)
+    local sm = setmetatable({}, StateMachine)
+    sm:init(...)
+    return sm
+  end
+})
+
 local baseStates = {
   enter = function () end,
   update = function () end,

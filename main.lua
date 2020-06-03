@@ -13,11 +13,13 @@ function love.load()
     vsync = true
   })
 
-
+  gScaleFactor = 3
   gGameState = StateMachine ({
     play = PlayState()
   })
   gGameState:change("play")
+
+  inputTable = {}
 
 end
 
@@ -25,6 +27,8 @@ end
 
 function love.update(dt)
   gGameState:update(dt)
+
+  inputTable = {}
 
 end
 
@@ -41,4 +45,14 @@ end
 
 ---------------------------------------------------------------------------------------------------------
 function love.resize(w, h) push:resize(w, h) end
+---------------------------------------------------------------------------------------------------------
+
+function love.keypressed(key, scancode, isrepeat)
+  if key == "escape" then
+    love.event.quit()
+  end
+  inputTable[key] = true
+
+end
+
 ---------------------------------------------------------------------------------------------------------
