@@ -7,7 +7,7 @@ spriteSheet = love.graphics.newImage("Sprite/DungeonTileset.png")
 ---------------------------------------------------------------------------------------------------------
 
 ---------------------------------------------------------------------------------------------------------
-
+-- player data
 PLAYER_DEFS = {
   elfF = {
     animations = {
@@ -64,37 +64,12 @@ PLAYER_DEFS = {
       run = newAnimation(192, 228, 16, 28, 4, 0.155),
       hit = newAnimation(256, 228, 16, 28, 1, 0.155),
     }
-  },
-
-
+  }
 }
 PLAYER_META = { width = 16, height = 28, speed = 300 }
 
 ---------------------------------------------------------------------------------------------------------
--- font data
-fontPresets = {
-  veryLarge = love.graphics.newFont("Font/stocky.ttf", 300),
-  large = love.graphics.newFont("Font/stocky.ttf", 170),
-  medium = love.graphics.newFont("Font/stocky.ttf", 80),
-  small = love.graphics.newFont("Font/stocky.ttf", 50),
-  verySmall = love.graphics.newFont("Font/stocky.ttf", 25),
-}
-
----------------------------------------------------------------------------------------------------------
--- color data
-colorPresets = {
-  white = {1, 1, 1},
-  red = {1, 0, 0},
-  yellow = {1, 1, 0},
-  green = {0, 1, 0},
-  cyan = {0, 1, 1},
-  blue = {0, 0, 1},
-  purple = {1, 0, 1},
-  black = {0, 0, 0}
-}
-
----------------------------------------------------------------------------------------------------------
--- input data
+-- input defs
 controlTable = {
   Confirm = {"x", "return"},
   Cancel = {"z", "backspace"},
@@ -104,6 +79,29 @@ controlTable = {
   Down = {"down", "kp2"},
   Left = {"left", "kp4"},
   Right = {"right", "kp6"},
+}
+
+---------------------------------------------------------------------------------------------------------
+-- font const
+FONTS = {
+  veryLarge = love.graphics.newFont("Font/stocky.ttf", 300),
+  large = love.graphics.newFont("Font/stocky.ttf", 170),
+  medium = love.graphics.newFont("Font/stocky.ttf", 80),
+  small = love.graphics.newFont("Font/stocky.ttf", 50),
+  verySmall = love.graphics.newFont("Font/stocky.ttf", 25),
+}
+
+---------------------------------------------------------------------------------------------------------
+-- color const
+COLORS = {
+  white = {1, 1, 1},
+  red = {1, 0, 0},
+  yellow = {1, 1, 0},
+  green = {0, 1, 0},
+  cyan = {0, 1, 1},
+  blue = {0, 0, 1},
+  purple = {1, 0, 1},
+  black = {0, 0, 0}
 }
 
 ---------------------------------------------------------------------------------------------------------

@@ -85,7 +85,7 @@ end
 
 
 function Player:render()
-  love.graphics.setColor(colorPresets.white)
+  love.graphics.setColor(COLORS.white)
   love.graphics.rectangle("line", self.x, self.y, self.width, self.height)
 
   -- correct direction according to self.isRight
