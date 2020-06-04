@@ -13,7 +13,6 @@ function love.load()
     vsync = true
   })
 
-  gScaleFactor = 3
   gGameState = StateMachine ({
     play = PlayState()
   })

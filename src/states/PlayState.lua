@@ -3,25 +3,26 @@ PlayState = class{}
 ---------------------------------------------------------------------------------------------------------
 
 function PlayState:enter()
-  world = bump.newWorld()
+  gameWorld = bump.newWorld()
 
   local newPlayerAttri = { type = "knightM"}
   player = Player(newPlayerAttri)
 
-  items = world:getItems()
+  items = gameWorld:getItems()
 
 end
 
 ---------------------------------------------------------------------------------------------------------
 
 function PlayState:update(dt)
-  items = world:getItems()
+  items = gameWorld:getItems()
 
   -- update all items
   for key, item in pairs(items) do
     item:update(dt)
   end
 
+  items = gameWorld:getItems()
 
 end
 

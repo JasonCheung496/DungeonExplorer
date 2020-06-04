@@ -50,3 +50,17 @@ function checkInput(key, method)
 end
 
 ---------------------------------------------------------------------------------------------------------
+--handle rotation
+function rotate(x, y, width, height, angle)
+  -- rotate rectangle (x, y, width, height) with angle clockwise about its bottom-right corner
+  -- return x, y (top-left corner of the rectangle) after rotation
+  local r = math.sqrt(math.pow(width, 2) + math.pow(height, 2))
+  local theta = math.atan2(height, width)
+  newX = x + width - r*math.cos(theta + angle)
+  newY = y + height - r*math.sin(theta + angle)
+  return newX, newY
+end
+
+---------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------

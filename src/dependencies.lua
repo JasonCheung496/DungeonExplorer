@@ -7,5 +7,6 @@ require "src/useful_functions"
 require "src/game_data"
 
 require "src/Player"
+require "src/Weapon"
 
 require "src/states/PlayState"
