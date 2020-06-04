@@ -70,16 +70,51 @@ PLAYER_DEFS = {
 PLAYER_META = { width = 16, height = 28, speed = 300 }
 
 ---------------------------------------------------------------------------------------------------------
+-- enemy data
+ENEMY_DEFS = {
+  tiny_zombie = {
+    frame = "A",
+    animations = {
+      idle = newAnimation(368, 16, 16, 16, 4, 0.155),
+      run = newAnimation(432, 16, 16, 16, 4, 0.155),
+    },
+  },
+  goblin = {
+    frame = "A",
+    animations = {
+      idle = newAnimation(368, 32, 16, 16, 4, 0.155),
+      run = newAnimation(432, 32, 16, 16, 4, 0.155),
+    },
+  },
+}
+ENEMY_META = {
+  list = { "tiny_zombie",  "goblin", },
+  frameA = { width = 16, height = 16},
+  frameB = { width = 16, height = 20},
+  speed = 200,
+}
+
+---------------------------------------------------------------------------------------------------------
 -- weapon data
 WEAPON_DEFS = {
   knife = {
-    damage = 10, hitbox = "S", attackTime = 0.7,
-    frame = { x = 294, y = 121, w = 5, h = 22}
-  }
+    damage = 10, hitbox = "S", attackTime = 0.2,
+    frame = { x = 293, y = 18, w = 6, h = 13}
+  },
+  rusty_sword = {
+    damage = 15, hitbox = "M", attackTime = 0.4,
+    frame = { x = 307, y = 26, w = 10, h = 21}
+  },
+  regular_sword = {
+    damage = 12, hitbox = "M", attackTime = 0.5,
+    frame = { x = 323, y = 26, w = 10, h = 21}
+  },
 }
 WEAPON_META = {
+  list = { "knife", "rusty_sword", "regular_sword", },
   hitboxS = {w = 30*SCALE_FACTOR, h = 30*SCALE_FACTOR},
-  hitboxM = {w = 50*SCALE_FACTOR, h = 50*SCALE_FACTOR}
+  hitboxM = {w = 50*SCALE_FACTOR, h = 50*SCALE_FACTOR},
+  hitboxL = {w = 80*SCALE_FACTOR, h = 80*SCALE_FACTOR},
 }
 
 ---------------------------------------------------------------------------------------------------------

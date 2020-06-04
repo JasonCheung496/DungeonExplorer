@@ -13,6 +13,8 @@ function love.load()
     vsync = true
   })
 
+  math.randomseed(os.time())
+
   gGameState = StateMachine ({
     play = PlayState()
   })

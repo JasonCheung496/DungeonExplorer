@@ -1,25 +1,28 @@
-Player = class{}
+Enemy = class{}
 
 ---------------------------------------------------------------------------------------------------------
 
-function Player:init(newAttri)
+function Enemy:init(newAttri)
   local attri = newAttri or {}
-  -- initialise player attributes according to attri
+  -- initialise enemy attributes according to attri
   self.x = attri.x or GAME_WIDTH/2
   self.y = attri.y  or GAME_HEIGHT/2
-  if attri.type and PLAYER_DEFS[attri.type] then
+  if attri.type and ENEMY_DEFS[attri.type] then
     self.type = attri.type
   else
-    self.type = "elfF"
+    self.type = "tiny_zombie"
   end
-  self.weaponType = attri.weaponType or "knife"
 
-  self.width = PLAYER_META.width*SCALE_FACTOR
-  self.height = PLAYER_META.height*SCALE_FACTOR
+  local frame = "frame" .. ENEMY_DEFS[self.type].frame
+  self.width = ENEMY_META[frame].width*SCALE_FACTOR
+  self.height = ENEMY_META[frame].height*SCALE_FACTOR
 
   -- for movement
   self.dx = 0
   self.dy = 0
+  self.speed = ENEMY_META.speed
+  self.angle = 0
+  self.push = 0
 
   -- for animation
   self.state = "idle"
@@ -27,8 +30,8 @@ function Player:init(newAttri)
   self.animTimer = 0
   self.curFrame = 1
   self.animationQuads = {}
-  -- cutting quads according to PLAYER_DEFS's animations
-  for k, anim in pairs(PLAYER_DEFS[self.type].animations) do
+  -- cutting quads according to ENEMY_DEFS's animations
+  for k, anim in pairs(ENEMY_DEFS[self.type].animations) do
     self.animationQuads[k] = sliceAnimToQuads(anim, spriteSheet)
   end
 
@@ -38,27 +41,11 @@ end
 
 ---------------------------------------------------------------------------------------------------------
 
-function Player:update(dt)
+function Enemy:update(dt)
+  -- random movement
 
-  -- input player action
-  self.dx, self.dy = 0, 0
-  local speed = PLAYER_META.speed
-  if checkInput("Right", "hold") then
-    self.dx = speed * dt
-  elseif checkInput("Left", "hold") then
-    self.dx = -speed * dt
-  end
-  if checkInput("Down", "hold") then
-    self.dy = speed * dt
-  elseif checkInput("Up", "hold") then
-    self.dy = -speed * dt
-  end
-  if checkInput("Confirm", "press") and not self.weapon then
-    self.weapon = Weapon({ type = self.weaponType })
-  end
-
-  -- move the player & check collision using bump
-  local playerFilter = function(item, other)
+  -- move the enemy & check collision using bump
+  local enemyFilter = function(item, other)
     return "slide"
   end
 
@@ -75,39 +62,18 @@ function Player:update(dt)
   else
     self.state = "idle"
   end
-  local curAnim = PLAYER_DEFS[self.type].animations[self.state]
+  local curAnim = ENEMY_DEFS[self.type].animations[self.state]
   self.animTimer = (self.animTimer + dt) % (curAnim.numOfFrames*curAnim.interval)
   self.curFrame = math.ceil(self.animTimer/curAnim.interval)
-
-  -- update weapon
-  if self.weapon then
-    if self.isRight == 1 then
-      self.weapon:transform(self.x + self.width - 20,
-        self.y + self.height/4*3 - self.weapon.visible.height, 1)
-    elseif self.isRight == -1 then
-      self.weapon:transform(self.x - self.weapon.width + 20,
-        self.y + self.height/4*3 - self.weapon.visible.height, -1)
-    end
-    self.weapon:update(dt)
-    if self.weapon.timer > self.weapon.lifetime then
-      self.weapon = nil
-    end
-  end
-
 
 end
 
 ---------------------------------------------------------------------------------------------------------
 
 
-function Player:render()
+function Enemy:render()
   love.graphics.setColor(COLORS.white)
   love.graphics.rectangle("line", self.x, self.y, self.width, self.height)
-
-  -- render weapon if any
-  if self.weapon then
-    self.weapon:render()
-  end
 
   -- correct direction according to self.isRight
   if self.isRight == 1 then

@@ -62,5 +62,15 @@ function rotate(x, y, width, height, angle)
 end
 
 ---------------------------------------------------------------------------------------------------------
+-- for transversing table
+function nextType(curType, listType)
+  for i, val in ipairs(listType) do
+    if val == curType and listType[i+1] then
+      return listType[i+1]
+    end
+  end
+  return listType[1]
+end
+
 ---------------------------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------------
