@@ -45,11 +45,13 @@ end
 function love.draw()
   push:start()
 
+  --love.graphics.clear(COLORS.white)
+
   gGameState:render()
 
   if gDebug then
     love.graphics.setColor(COLORS.yellow)
-    love.graphics.setFont(FONTS.small)
+    love.graphics.setFont(FONTS.verySmall)
     love.graphics.print("Current FPS: "..tostring(love.timer.getFPS( )), 10, 10)
 
     local stats = love.graphics.getStats()

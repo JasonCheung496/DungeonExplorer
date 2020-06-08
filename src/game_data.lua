@@ -131,6 +131,66 @@ WEAPON_META = {
 }
 
 ---------------------------------------------------------------------------------------------------------
+-- walls sprite
+WALL = {
+  top_left = { x = 16, y = 0 },
+  top_mid = { x = 32, y = 0 },
+  top_right = { x = 48, y = 0 },
+
+  left = { x = 16, y = 16 },
+  mid = { x = 32, y = 16 },
+  right = { x = 48, y = 16 },
+
+  side_top_left = { x = 0, y = 112 },
+  side_top_right = { x = 16, y = 112 },
+  side_mid_left = { x = 0, y = 128 },
+  side_mid_right = { x = 16, y = 128 },
+  side_front_left = { x = 0, y = 144 },
+  side_front_right = { x = 16, y = 144 },
+
+  corner_top_left = { x = 32, y = 112 },
+  corner_top_right = { x = 48, y = 112 },
+  corner_left = { x = 32, y = 128 },
+  corner_right = { x = 48, y = 128 },
+  corner_bottom_left = { x = 32, y = 144 },
+  corner_bottom_right = { x = 48, y = 144 },
+  corner_front_left = { x = 32, y = 160 },
+  corner_front_right = { x = 48, y = 160 },
+
+  inner_corner_l_top_left = { x = 80, y = 128 },
+  inner_corner_l_top_rigth = { x = 64, y = 128 },
+  inner_corner_mid_left = { x = 80, y = 144 },
+  inner_corner_mid_rigth = { x = 64, y = 144 },
+  inner_corner_t_top_left = { x = 80, y = 160 },
+  inner_corner_t_top_rigth = { x = 64, y = 160 },
+}
+
+WALL_META = {
+  w = 16, h = 16,
+  list = { "top_left", "top_mid", "top_right", "left", "mid", "right", "side_top_left",
+  "side_top_right", "side_mid_left", "side_mid_right", "side_front_left", "side_front_right",
+  "corner_top_left", "corner_top_right", "corner_left", "corner_right", "corner_bottom_left",
+  "corner_bottom_right", "corner_front_left", "corner_front_right", "inner_corner_l_top_left",
+  "inner_corner_l_top_rigth", "inner_corner_mid_left", "inner_corner_mid_rigth",
+  "inner_corner_t_top_left", "inner_corner_t_top_rigth" }
+}
+
+---------------------------------------------------------------------------------------------------------
+-- floor sprite
+FLOOR = {}
+FLOOR["1"] = { x = 16, y = 64 }
+FLOOR["2"] = { x = 32, y = 64 }
+FLOOR["3"] = { x = 48, y = 64 }
+FLOOR["4"] = { x = 16, y = 80 }
+FLOOR["5"] = { x = 32, y = 80 }
+FLOOR["6"] = { x = 48, y = 80 }
+FLOOR["7"] = { x = 16, y = 96 }
+FLOOR["8"] = { x = 32, y = 96 }
+FLOOR["ladder"] = { x = 48, y = 96 }
+
+FLOOR_META = { w = 16, h = 16 }
+
+---------------------------------------------------------------------------------------------------------
 -- input defs
 controlTable = {
   Confirm = {"x", "return"},
