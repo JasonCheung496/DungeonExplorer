@@ -21,6 +21,7 @@ function love.load()
     play = PlayState()
   })
   gGameState:change("play")
+  gDebug = false
 
   inputTable = {}
 
@@ -30,6 +31,10 @@ end
 
 function love.update(dt)
   gGameState:update(dt)
+
+  if checkInput("f1", "press") then
+    gDebug = gDebug == false
+  end
 
   inputTable = {}
 
@@ -42,12 +47,14 @@ function love.draw()
 
   gGameState:render()
 
-  love.graphics.setColor(COLORS.yellow)
-  love.graphics.setFont(FONTS.small)
-  love.graphics.print("Current FPS: "..tostring(love.timer.getFPS( )), 10, 10)
+  if gDebug then
+    love.graphics.setColor(COLORS.yellow)
+    love.graphics.setFont(FONTS.small)
+    love.graphics.print("Current FPS: "..tostring(love.timer.getFPS( )), 10, 10)
 
-  local stats = love.graphics.getStats()
-  love.graphics.print(string.format("Texture memory used: %.2f MB", stats.texturememory/1024/1024), 10, 50)
+    local stats = love.graphics.getStats()
+    love.graphics.print(string.format("Texture memory used: %.2f MB", stats.texturememory/1024/1024), 10, 50)
+  end
 
   push:finish()
 

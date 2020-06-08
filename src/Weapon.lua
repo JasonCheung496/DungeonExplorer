@@ -62,8 +62,12 @@ end
 
 function Weapon:render()
   love.graphics.setColor(COLORS.white)
-  love.graphics.rectangle("line", self.x, self.y, self.width, self.height)
 
+  -- for debug
+  if gDebug then
+    love.graphics.rectangle("line", self.x, self.y, self.width, self.height)
+  end
+  
   -- correct direction according to self.isRight
   if self.isRight == 1 then
     love.graphics.draw(SPRITE_SHEET, self.quad, self.visible.x, self.visible.y,

@@ -98,8 +98,12 @@ end
 
 function Enemy:render()
   love.graphics.setColor(COLORS.white)
-  love.graphics.rectangle("line", self.x, self.y, self.width, self.height)
 
+  -- for debug
+  if gDebug then
+    love.graphics.rectangle("line", self.x, self.y, self.width, self.height)
+  end
+  
   -- if in invincibleTime, render flashing sprite
   if self.invincibleTime % 0.3 <= 0.15 then
     -- correct direction according to self.isRight

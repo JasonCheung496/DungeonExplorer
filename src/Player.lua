@@ -118,11 +118,17 @@ end
 
 function Player:render()
   local vx, vy, vw, vh = self.visible.x, self.visible.y, self.visible.width, self.visible.height
-  love.graphics.setColor(COLORS.red)
-  love.graphics.rectangle("line", vx, vy, vw, vh)
+  
+  -- for debug
+  if gDebug then
+    love.graphics.setColor(COLORS.red)
+    love.graphics.rectangle("line", vx, vy, vw, vh)
+
+    love.graphics.setColor(COLORS.white)
+    love.graphics.rectangle("line", self.x, self.y, self.width, self.height)
+  end
 
   love.graphics.setColor(COLORS.white)
-  love.graphics.rectangle("line", self.x, self.y, self.width, self.height)
 
   -- render weapon if any
   if self.weapon then
@@ -135,7 +141,7 @@ function Player:render()
       vx, vy, 0, SCALE_FACTOR)
   elseif self.isRight == -1 then
     love.graphics.draw(SPRITE_SHEET, self.animationQuads[self.state][self.curFrame],
-      vx+vw, vy, 0, SCALE_FACTOR*-1, SCALE_FACTOR)
+      vx, vy, 0, SCALE_FACTOR*-1, SCALE_FACTOR, vw/SCALE_FACTOR)
   end
 
 end
