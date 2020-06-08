@@ -13,6 +13,8 @@ function love.load()
     vsync = true
   })
 
+  love.window.setTitle("Dungeon Explorer")
+
   math.randomseed(os.time())
 
   gGameState = StateMachine ({
@@ -39,6 +41,13 @@ function love.draw()
   push:start()
 
   gGameState:render()
+
+  love.graphics.setColor(COLORS.yellow)
+  love.graphics.setFont(FONTS.small)
+  love.graphics.print("Current FPS: "..tostring(love.timer.getFPS( )), 10, 10)
+
+  local stats = love.graphics.getStats()
+  love.graphics.print(string.format("Texture memory used: %.2f MB", stats.texturememory/1024/1024), 10, 50)
 
   push:finish()
 

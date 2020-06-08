@@ -19,7 +19,7 @@ function sliceAnimToQuads(animation, image)
 end
 
 ---------------------------------------------------------------------------------------------------------
-
+-- mathematical
 function sign(num)
   if num > 0 then
     return 1
@@ -70,6 +70,15 @@ function nextType(curType, listType)
     end
   end
   return listType[1]
+end
+
+function prevType(curType, listType)
+  for i, val in ipairs(listType) do
+    if val == curType and listType[i-1] then
+      return listType[i-1]
+    end
+  end
+  return listType[#listType]
 end
 
 ---------------------------------------------------------------------------------------------------------

@@ -1,10 +1,10 @@
 ---------------------------------------------------------------------------------------------------------
--- const scale factor
+-- scale factor const
 SCALE_FACTOR = 3
 
 ---------------------------------------------------------------------------------------------------------
 -- all sprites
-spriteSheet = love.graphics.newImage("Sprite/DungeonTileset.png")
+SPRITE_SHEET = love.graphics.newImage("Sprite/DungeonTileset.png")
 
 ---------------------------------------------------------------------------------------------------------
 -- font const

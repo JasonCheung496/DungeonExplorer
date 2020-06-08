@@ -14,8 +14,8 @@ function Player:init(newAttri)
   end
   self.weaponType = attri.weaponType or "knife"
 
-  self.width = PLAYER_META.width*SCALE_FACTOR
-  self.height = PLAYER_META.height*SCALE_FACTOR
+  self.width = (PLAYER_META.width-5)*SCALE_FACTOR
+  self.height = 7*SCALE_FACTOR
 
   -- for movement
   self.dx = 0
@@ -29,8 +29,16 @@ function Player:init(newAttri)
   self.animationQuads = {}
   -- cutting quads according to PLAYER_DEFS's animations
   for k, anim in pairs(PLAYER_DEFS[self.type].animations) do
-    self.animationQuads[k] = sliceAnimToQuads(anim, spriteSheet)
+    self.animationQuads[k] = sliceAnimToQuads(anim, SPRITE_SHEET)
   end
+  self.visible = {
+    x = self.x,
+    y = self.y,
+    width = PLAYER_META.width*SCALE_FACTOR,
+    height = PLAYER_META.height*SCALE_FACTOR,
+  }
+
+  -- normal xy is for hitbox, visible xy is for visual
 
   gameWorld:add(self, self.x, self.y, self.width, self.height)
 
@@ -40,7 +48,7 @@ end
 
 function Player:update(dt)
 
-  -- input player action
+  -- input player movement
   self.dx, self.dy = 0, 0
   local speed = PLAYER_META.speed
   if checkInput("Right", "hold") then
@@ -53,8 +61,15 @@ function Player:update(dt)
   elseif checkInput("Up", "hold") then
     self.dy = -speed * dt
   end
+  -- input player attack
   if checkInput("Confirm", "press") and not self.weapon then
     self.weapon = Weapon({ type = self.weaponType })
+  end
+  -- input to change weapon
+  if checkInput("s", "press") then
+    self.weaponType = nextType(self.weaponType, WEAPON_META.list)
+  elseif checkInput("a", "press") then
+    self.weaponType = prevType(self.weaponType, WEAPON_META.list)
   end
 
   -- move the player & check collision using bump
@@ -78,15 +93,16 @@ function Player:update(dt)
   local curAnim = PLAYER_DEFS[self.type].animations[self.state]
   self.animTimer = (self.animTimer + dt) % (curAnim.numOfFrames*curAnim.interval)
   self.curFrame = math.ceil(self.animTimer/curAnim.interval)
+  self.visible.x = self.x + self.width/2 - self.visible.width/2
+  self.visible.y = self.y + self.height - self.visible.height
 
   -- update weapon
+  local vx, vy, vw, vh = self.visible.x, self.visible.y, self.visible.width, self.visible.height
   if self.weapon then
     if self.isRight == 1 then
-      self.weapon:transform(self.x + self.width - 20,
-        self.y + self.height/4*3 - self.weapon.visible.height, 1)
+      self.weapon:transform(vx+vw-30, vy+vh/4*3-self.weapon.visible.height, 1)
     elseif self.isRight == -1 then
-      self.weapon:transform(self.x - self.weapon.width + 20,
-        self.y + self.height/4*3 - self.weapon.visible.height, -1)
+      self.weapon:transform(vx-self.weapon.width+30, vy+vh/4*3-self.weapon.visible.height, -1)
     end
     self.weapon:update(dt)
     if self.weapon.timer > self.weapon.lifetime then
@@ -101,6 +117,10 @@ end
 
 
 function Player:render()
+  local vx, vy, vw, vh = self.visible.x, self.visible.y, self.visible.width, self.visible.height
+  love.graphics.setColor(COLORS.red)
+  love.graphics.rectangle("line", vx, vy, vw, vh)
+
   love.graphics.setColor(COLORS.white)
   love.graphics.rectangle("line", self.x, self.y, self.width, self.height)
 
@@ -111,11 +131,11 @@ function Player:render()
 
   -- correct direction according to self.isRight
   if self.isRight == 1 then
-    love.graphics.draw(spriteSheet, self.animationQuads[self.state][self.curFrame],
-      self.x, self.y, 0, SCALE_FACTOR)
+    love.graphics.draw(SPRITE_SHEET, self.animationQuads[self.state][self.curFrame],
+      vx, vy, 0, SCALE_FACTOR)
   elseif self.isRight == -1 then
-    love.graphics.draw(spriteSheet, self.animationQuads[self.state][self.curFrame],
-      self.x+self.width, self.y, 0, SCALE_FACTOR*-1, SCALE_FACTOR)
+    love.graphics.draw(SPRITE_SHEET, self.animationQuads[self.state][self.curFrame],
+      vx+vw, vy, 0, SCALE_FACTOR*-1, SCALE_FACTOR)
   end
 
 end

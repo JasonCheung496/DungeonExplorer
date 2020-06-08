@@ -21,7 +21,7 @@ function Weapon:init(newAttri)
 
   -- for render animations
   self.isRight = 1
-  self.quad = love.graphics.newQuad(frame.x, frame.y, frame.w, frame.h, spriteSheet:getDimensions())
+  self.quad = love.graphics.newQuad(frame.x, frame.y, frame.w, frame.h, SPRITE_SHEET:getDimensions())
   self.timer = 0
   self.visible = {
     x = self.x,
@@ -37,11 +37,11 @@ end
 
 function Weapon:update(dt)
   local items, len = gameWorld:queryRect(self.x, self.y, self.width, self.height)
-  for k, v in pairs(items) do
-    if v.__index == Enemy then
+  for _, entity in pairs(items) do
+    if entity.__index == Enemy then
       -- each time enemyies should only be hit by the same weapon once,
       -- so invincibleTime = self.lifetime-self.timer
-      v:hitByWeapon(WEAPON_DEFS[self.type].damage, self.lifetime-self.timer)
+      entity:hitByWeapon(WEAPON_DEFS[self.type].damage, self.lifetime-self.timer)
     end
   end
 
@@ -66,10 +66,10 @@ function Weapon:render()
 
   -- correct direction according to self.isRight
   if self.isRight == 1 then
-    love.graphics.draw(spriteSheet, self.quad, self.visible.x, self.visible.y,
+    love.graphics.draw(SPRITE_SHEET, self.quad, self.visible.x, self.visible.y,
       self.visible.angle, SCALE_FACTOR)
   elseif self.isRight == -1 then
-    love.graphics.draw(spriteSheet, self.quad, self.visible.x, self.visible.y,
+    love.graphics.draw(SPRITE_SHEET, self.quad, self.visible.x, self.visible.y,
       self.visible.angle, -SCALE_FACTOR, SCALE_FACTOR, self.visible.width/SCALE_FACTOR)
   end
 

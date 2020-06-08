@@ -58,7 +58,10 @@ PLAYER_DEFS = {
     }
   }
 }
-PLAYER_META = { width = 16, height = 28, speed = 300 }
+PLAYER_META = { width = 16, height = 28, speed = 300,
+  list = {"elf_f", "elf_m", "knight_f", "knight_m",
+    "wizzard_f","wizzard_m", "lizzard_f", "lizzard_m"},
+}
 
 ---------------------------------------------------------------------------------------------------------
 -- enemy data
@@ -77,9 +80,23 @@ ENEMY_DEFS = {
       run = newAnimation(432, 32, 16, 16, 4, 0.155),
     },
   },
+  imp = {
+    frame = "A",
+    animations = {
+      idle = newAnimation(368, 48, 16, 16, 4, 0.155),
+      run = newAnimation(432, 48, 16, 16, 4, 0.155),
+    },
+  },
+  skelet = {
+    frame = "A",
+    animations = {
+      idle = newAnimation(368, 80, 16, 16, 4, 0.155),
+      run = newAnimation(432, 80, 16, 16, 4, 0.155),
+    },
+  },
 }
 ENEMY_META = {
-  list = { "tiny_zombie",  "goblin", },
+  list = { "tiny_zombie",  "goblin", "imp", "skelet"},
   frameA = { width = 16, height = 16},
   frameB = { width = 16, height = 20},
   speed = 200,
@@ -89,20 +106,28 @@ ENEMY_META = {
 -- weapon data
 WEAPON_DEFS = {
   knife = {
-    damage = 10, attackTime = 0.2,
+    damage = 10, attackTime = 0.20,
     frame = { x = 293, y = 18, w = 6, h = 13}
   },
   rusty_sword = {
-    damage = 15, attackTime = 0.4,
+    damage = 12, attackTime = 0.50,
     frame = { x = 307, y = 26, w = 10, h = 21}
   },
   regular_sword = {
-    damage = 12, attackTime = 0.5,
+    damage = 15, attackTime = 0.40,
     frame = { x = 323, y = 26, w = 10, h = 21}
+  },
+  red_gem_sword = {
+    damage = 18, attackTime = 0.42,
+    frame = { x = 339, y = 26, w = 10, h = 21}
+  },
+  big_hammer = {
+    damage = 20, attackTime = 1.00,
+    frame = { x = 291, y = 42, w = 10, h = 37}
   },
 }
 WEAPON_META = {
-  list = { "knife", "rusty_sword", "regular_sword", },
+  list = { "knife", "rusty_sword", "regular_sword", "red_gem_sword", "big_hammer",},
 }
 
 ---------------------------------------------------------------------------------------------------------
