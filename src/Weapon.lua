@@ -14,8 +14,8 @@ function Weapon:init(newAttri)
   end
   self.lifetime = WEAPON_DEFS[self.type].attackTime
 
-  -- for hitbox
   local frame = WEAPON_DEFS[self.type].frame
+  -- for hitbox
   self.width = frame.h * SCALE_FACTOR + 20
   self.height = frame.h * 2 * SCALE_FACTOR
 
@@ -37,6 +37,13 @@ end
 
 function Weapon:update(dt)
   local items, len = gameWorld:queryRect(self.x, self.y, self.width, self.height)
+  for k, v in pairs(items) do
+    if v.__index == Enemy then
+      -- each time enemyies should only be hit by the same weapon once,
+      -- so invincibleTime = self.lifetime-self.timer
+      v:hitByWeapon(WEAPON_DEFS[self.type].damage, self.lifetime-self.timer)
+    end
+  end
 
   -- destroy itself if timer > lifetime
   self.timer = self.timer + dt

@@ -17,6 +17,9 @@ function Enemy:init(newAttri)
   self.width = ENEMY_META[frame].width*SCALE_FACTOR
   self.height = ENEMY_META[frame].height*SCALE_FACTOR
 
+  self.HP = 100
+  self.invincibleTime = 0
+
   -- for movement
   self.dx = 0
   self.dy = 0
@@ -42,6 +45,11 @@ end
 ---------------------------------------------------------------------------------------------------------
 
 function Enemy:update(dt)
+  -- update invincibleTime
+  self.invincibleTime = math.max(0, self.invincibleTime-dt)
+
+
+
   -- random movement
 
   -- move the enemy & check collision using bump
@@ -66,6 +74,11 @@ function Enemy:update(dt)
   self.animTimer = (self.animTimer + dt) % (curAnim.numOfFrames*curAnim.interval)
   self.curFrame = math.ceil(self.animTimer/curAnim.interval)
 
+  -- remove itself in HP <= 0
+  if self.HP <= 0 then
+    gameWorld:remove(self)
+  end
+
 end
 
 ---------------------------------------------------------------------------------------------------------
@@ -84,6 +97,24 @@ function Enemy:render()
       self.x+self.width, self.y, 0, SCALE_FACTOR*-1, SCALE_FACTOR)
   end
 
+  love.graphics.setFont(FONTS.medium)
+  love.graphics.print(tostring(self.HP))
+
+end
+
+---------------------------------------------------------------------------------------------------------
+
+function Enemy:changeHealth(val)
+  self.HP = self.HP + val
+end
+
+---------------------------------------------------------------------------------------------------------
+
+function Enemy:hitByWeapon(val, invincibleTime)
+  if self.invincibleTime <= 0 then
+    self:changeHealth(-val)
+    self.invincibleTime = invincibleTime
+  end
 end
 
 ---------------------------------------------------------------------------------------------------------
