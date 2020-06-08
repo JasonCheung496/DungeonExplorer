@@ -10,7 +10,7 @@ function Player:init(newAttri)
   if attri.type and PLAYER_DEFS[attri.type] then
     self.type = attri.type
   else
-    self.type = "elfF"
+    self.type = "elf_f"
   end
   self.weaponType = attri.weaponType or "knife"
 

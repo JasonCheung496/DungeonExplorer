@@ -5,7 +5,7 @@ PlayState = class{}
 function PlayState:enter()
   gameWorld = bump.newWorld()
 
-  local newPlayerAttri = { type = "lizzardM", weaponType = "sword" }
+  local newPlayerAttri = { type = "lizzard_f", weaponType = "rusty_sword" }
   player = Player(newPlayerAttri)
   local newEnemyAttri = { type = "tiny_zombie"}
   enemy = Enemy(newEnemyAttri)

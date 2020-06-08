@@ -3,6 +3,7 @@ bump = require "lib/bump"
 class = require "lib/class"
 require "lib/state_machine"
 
+require "src/const"
 require "src/useful_functions"
 require "src/game_data"
 

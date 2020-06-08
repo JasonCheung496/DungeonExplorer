@@ -1,65 +1,56 @@
--- all sprites
-spriteSheet = love.graphics.newImage("Sprite/DungeonTileset.png")
-
----------------------------------------------------------------------------------------------------------
--- const scale factor
-SCALE_FACTOR = 3
-
----------------------------------------------------------------------------------------------------------
-
 ---------------------------------------------------------------------------------------------------------
 -- player data
 PLAYER_DEFS = {
-  elfF = {
+  elf_f = {
     animations = {
       idle = newAnimation(128, 4, 16, 28, 4, 0.155),
       run = newAnimation(192, 4, 16, 28, 4, 0.155),
       hit = newAnimation(256, 4, 16, 28, 1, 0.155),
     }
   },
-  elfM = {
+  elf_m = {
     animations = {
       idle = newAnimation(128, 36, 16, 28, 4, 0.155),
       run = newAnimation(192, 36, 16, 28, 4, 0.155),
       hit = newAnimation(256, 36, 16, 28, 1, 0.155),
     }
   },
-  knightF = {
+  knight_f = {
     animations = {
       idle = newAnimation(128, 68, 16, 28, 4, 0.155),
       run = newAnimation(192, 68, 16, 28, 4, 0.155),
       hit = newAnimation(256, 68, 16, 28, 1, 0.155),
     }
   },
-  knightM = {
+  knight_m = {
     animations = {
       idle = newAnimation(128, 100, 16, 28, 4, 0.155),
       run = newAnimation(192, 100, 16, 28, 4, 0.155),
       hit = newAnimation(256, 100, 16, 28, 1, 0.155),
     }
   },
-  wizzardF = {
+  wizzard_f = {
     animations = {
       idle = newAnimation(128, 132, 16, 28, 4, 0.155),
       run = newAnimation(192, 132, 16, 28, 4, 0.155),
       hit = newAnimation(256, 132, 16, 28, 1, 0.155),
     }
   },
-  wizzardM = {
+  wizzard_m = {
     animations = {
       idle = newAnimation(128, 164, 16, 28, 4, 0.155),
       run = newAnimation(192, 164, 16, 28, 4, 0.155),
       hit = newAnimation(256, 164, 16, 28, 1, 0.155),
     }
   },
-  lizzardF = {
+  lizzard_f = {
     animations = {
       idle = newAnimation(128, 196, 16, 28, 4, 0.155),
       run = newAnimation(192, 196, 16, 28, 4, 0.155),
       hit = newAnimation(256, 196, 16, 28, 1, 0.155),
     }
   },
-  lizzardM = {
+  lizzard_m = {
     animations = {
       idle = newAnimation(128, 228, 16, 28, 4, 0.155),
       run = newAnimation(192, 228, 16, 28, 4, 0.155),
@@ -98,23 +89,20 @@ ENEMY_META = {
 -- weapon data
 WEAPON_DEFS = {
   knife = {
-    damage = 10, hitbox = "S", attackTime = 0.2,
+    damage = 10, attackTime = 0.2,
     frame = { x = 293, y = 18, w = 6, h = 13}
   },
   rusty_sword = {
-    damage = 15, hitbox = "M", attackTime = 0.4,
+    damage = 15, attackTime = 0.4,
     frame = { x = 307, y = 26, w = 10, h = 21}
   },
   regular_sword = {
-    damage = 12, hitbox = "M", attackTime = 0.5,
+    damage = 12, attackTime = 0.5,
     frame = { x = 323, y = 26, w = 10, h = 21}
   },
 }
 WEAPON_META = {
   list = { "knife", "rusty_sword", "regular_sword", },
-  hitboxS = {w = 30*SCALE_FACTOR, h = 30*SCALE_FACTOR},
-  hitboxM = {w = 50*SCALE_FACTOR, h = 50*SCALE_FACTOR},
-  hitboxL = {w = 80*SCALE_FACTOR, h = 80*SCALE_FACTOR},
 }
 
 ---------------------------------------------------------------------------------------------------------
@@ -129,32 +117,5 @@ controlTable = {
   Left = {"left", "kp4"},
   Right = {"right", "kp6"},
 }
-
----------------------------------------------------------------------------------------------------------
--- font const
-FONTS = {
-  veryLarge = love.graphics.newFont("Font/stocky.ttf", 300),
-  large = love.graphics.newFont("Font/stocky.ttf", 170),
-  medium = love.graphics.newFont("Font/stocky.ttf", 80),
-  small = love.graphics.newFont("Font/stocky.ttf", 50),
-  verySmall = love.graphics.newFont("Font/stocky.ttf", 25),
-}
-
----------------------------------------------------------------------------------------------------------
--- color const
-COLORS = {
-  white = {1, 1, 1},
-  red = {1, 0, 0},
-  yellow = {1, 1, 0},
-  green = {0, 1, 0},
-  cyan = {0, 1, 1},
-  blue = {0, 0, 1},
-  purple = {1, 0, 1},
-  black = {0, 0, 0}
-}
-
----------------------------------------------------------------------------------------------------------
-
-
 
 ---------------------------------------------------------------------------------------------------------

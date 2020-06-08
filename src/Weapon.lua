@@ -15,13 +15,12 @@ function Weapon:init(newAttri)
   self.lifetime = WEAPON_DEFS[self.type].attackTime
 
   -- for hitbox
-  local hitbox = WEAPON_META["hitbox" .. WEAPON_DEFS[self.type].hitbox]
-  self.width = hitbox.w
-  self.height = hitbox.h
+  local frame = WEAPON_DEFS[self.type].frame
+  self.width = frame.h * SCALE_FACTOR + 20
+  self.height = frame.h * 2 * SCALE_FACTOR
 
   -- for render animations
   self.isRight = 1
-  local frame = WEAPON_DEFS[self.type].frame
   self.quad = love.graphics.newQuad(frame.x, frame.y, frame.w, frame.h, spriteSheet:getDimensions())
   self.timer = 0
   self.visible = {
