@@ -27,6 +27,7 @@ function PlayState:update(dt)
   end
 
   items = gameWorld:getItems() -- for render, in case anything is removed in update
+  table.sort(items, orderY) -- draw items according to y-coordinate, for more logical visual
 
 end
 
@@ -34,7 +35,7 @@ end
 
 function PlayState:render()
   -- render all items
-  for key, item in pairs(items) do
+  for i, item in ipairs(items) do
     item:render(dt)
   end
 
