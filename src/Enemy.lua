@@ -1,4 +1,5 @@
 Enemy = class{}
+Enemy.layer = 0 -- render layer
 
 ---------------------------------------------------------------------------------------------------------
 
@@ -66,11 +67,12 @@ function Enemy:update(dt)
 
   -- move the enemy & check collision using bump
   local enemyFilter = function(item, other)
-    return "slide"
+    if other.__index == Floor then return "cross"
+    else return "slide" end
   end
 
   local goalX, goalY = self.x + self.dx, self.y + self.dy
-  local actualX, actualY = gameWorld:move(self, goalX, goalY)
+  local actualX, actualY = gameWorld:move(self, goalX, goalY, enemyFilter)
   self.x, self.y = actualX, actualY
 
   -- update animations
@@ -103,7 +105,7 @@ function Enemy:render()
   if gDebug then
     love.graphics.rectangle("line", self.x, self.y, self.width, self.height)
   end
-  
+
   -- if in invincibleTime, render flashing sprite
   if self.invincibleTime % 0.3 <= 0.15 then
     -- correct direction according to self.isRight

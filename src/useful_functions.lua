@@ -83,8 +83,12 @@ end
 
 ---------------------------------------------------------------------------------------------------------
 -- for drawing order
-function orderY(itemA, itemB)
-  return itemA.y < itemB.y
+function renderOrder(itemA, itemB)
+  if itemA.layer == itemB.layer then
+    return itemA.y+itemA.height < itemB.y+itemB.height
+  else
+    return itemA.layer < itemB.layer
+  end
 end
 
 ---------------------------------------------------------------------------------------------------------
@@ -129,9 +133,30 @@ function newRoom(x, y, numCol, numRow)
     end
   end
 
-
-
   return room
 end
 
+---------------------------------------------------------------------------------------------------------
+-- for updating camera
+function updateCamera(cam, push)
+  -- left border = 300
+  -- right border = GAME_WIDTH/3*2
+  -- up border = 100
+  -- down border = GAME_HEIGHT/3*2
+  -- push going beyond the border will push the camera
+  if push.x + cam.x > GAME_WIDTH/3*2 then
+    cam.x = -(push.x - GAME_WIDTH/3*2)
+  elseif push.x + cam.x < 300 then
+    cam.x = -(push.x - 300)
+  end
+  if push.y + cam.y > GAME_HEIGHT/3*2 then
+    cam.y = -(push.y - GAME_HEIGHT/3*2)
+  elseif push.y + cam.y < 100 then
+    cam.y = -(push.y - 100)
+  end
+
+end
+
+---------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------------

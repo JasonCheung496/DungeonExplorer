@@ -1,4 +1,5 @@
 WallFront = class{}
+WallFront.layer = 0 -- render layer
 
 ---------------------------------------------------------------------------------------------------------
 
@@ -19,7 +20,9 @@ function WallFront:init(newAttri)
   frame.w, frame.h = WALL_META.w, WALL_META.h
   self.quad2 = love.graphics.newQuad(frame.x, frame.y, frame.w, frame.h, SPRITE_SHEET:getDimensions())
 
-  gameWorld:add(self, self.x, self.y, self.width, self.height)
+  local hitbox = { width = self.width, height = self.height/2-20, x = self.x, }
+  hitbox.y = self.y + self.height - hitbox.height
+  gameWorld:add(self, hitbox.x, hitbox.y, hitbox.width, hitbox.height)
 
 end
 

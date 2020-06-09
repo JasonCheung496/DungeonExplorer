@@ -1,4 +1,5 @@
 Player = class{}
+Player.layer = 0 -- render layer
 
 ---------------------------------------------------------------------------------------------------------
 
@@ -74,11 +75,12 @@ function Player:update(dt)
 
   -- move the player & check collision using bump
   local playerFilter = function(item, other)
-    return "slide"
+    if other.__index == Floor then return "cross"
+    else return "slide" end
   end
 
   local goalX, goalY = self.x + self.dx, self.y + self.dy
-  local actualX, actualY = gameWorld:move(self, goalX, goalY)
+  local actualX, actualY = gameWorld:move(self, goalX, goalY, playerFilter)
   self.x, self.y = actualX, actualY
 
   -- update animations
@@ -118,7 +120,7 @@ end
 
 function Player:render()
   local vx, vy, vw, vh = self.visible.x, self.visible.y, self.visible.width, self.visible.height
-  
+
   -- for debug
   if gDebug then
     love.graphics.setColor(COLORS.red)
