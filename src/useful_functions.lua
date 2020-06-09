@@ -88,3 +88,50 @@ function orderY(itemA, itemB)
 end
 
 ---------------------------------------------------------------------------------------------------------
+-- for creating room
+function newRoom(x, y, numCol, numRow)
+  -- creating a rectangular room with size x*y
+  local room = {}
+  for i = 0, numRow do room[i] = {} end
+
+  -- build the floor
+  for i = 2, numRow-1 do
+    local newRow = {}
+    for j = 2, numCol-1 do
+      local newAttri = { x = x + (j-1)*TILE_WIDTH, y = y + (i-1)*TILE_HEIGHT }
+      newAttri.type = tostring(math.random(1, 8))
+      newRow[j] = Floor(newAttri)
+    end
+    room[i] = newRow
+  end
+
+  -- build the front wall
+  for _, i in ipairs({ 1, numRow }) do
+    for j = 2, numCol-1 do
+      local newAttri = { x = x + (j-1)*TILE_WIDTH, y = y + (i-1)*TILE_HEIGHT, type = "mid" }
+      room[i][j] = WallFront(newAttri)
+    end
+  end
+
+  -- build the side wall
+  for i = 0, numRow do
+    for pos, j in pairs({ left = 1, right = numCol }) do
+      local newAttri = { x = x + (j-1)*TILE_WIDTH, y = y + (i-1)*TILE_HEIGHT }
+      if i == 0 then
+        newAttri.type = "side_top_" .. pos
+      elseif i == numRow then
+        newAttri.type = "side_front_" .. pos
+      else
+        newAttri.type = "side_mid_" .. pos
+      end
+      room[i][j] = Wall(newAttri)
+
+    end
+  end
+
+
+
+  return room
+end
+
+---------------------------------------------------------------------------------------------------------

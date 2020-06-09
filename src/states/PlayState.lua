@@ -12,14 +12,19 @@ function PlayState:enter()
   local newEnemyAttri = { x = 600, y = 500, type = "imp"}
   enemy2 = Enemy(newEnemyAttri)
 
+  --[[
   wall = {}
   local cnt = 1
   while cnt <= #WALL_META.list do
-    local newWallAttri = { x = 200+(cnt%5)*50, y = 200+(math.floor(cnt/5))*50, type = WALL_META.list[cnt]}
+    local newWallAttri = { x = 200+(cnt%5)*48, y = 200+(math.floor(cnt/5))*48, type = WALL_META.list[cnt] }
     table.insert(wall, Wall(newWallAttri))
     cnt = cnt + 1
   end
+  ]]
 
+  gameRoom = newRoom(200, 100, 50, 30)
+
+  -- for gGameState:change() so it skips the update()
   items = gameWorld:getItems()
 
 end

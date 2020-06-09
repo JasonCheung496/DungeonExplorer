@@ -11,5 +11,7 @@ require "src/Player"
 require "src/Weapon"
 require "src/Enemy"
 require "src/Wall"
+require "src/WallFront"
+require "src/Floor"
 
 require "src/states/PlayState"
