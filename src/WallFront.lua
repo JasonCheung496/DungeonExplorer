@@ -6,12 +6,13 @@ WallFront.layer = 0 -- render layer
 function WallFront:init(newAttri)
   local attri = newAttri or {}
 
-  self.x = attri.x or 0
-  self.y = attri.y or 0
+  self.visible = {}
+  self.visible.x = attri.x or 0
+  self.visible.y = attri.y or 0
   self.type = attri.type or "left" -- "left", "mid", "right"
 
-  self.width = WALL_META.w * SCALE_FACTOR
-  self.height = WALL_META.w * SCALE_FACTOR
+  self.visible.width = WALL_META.w * SCALE_FACTOR
+  self.visible.height = WALL_META.w * SCALE_FACTOR
 
   local frame = WALL[self.type]
   frame.w, frame.h = WALL_META.w, WALL_META.h
@@ -20,9 +21,11 @@ function WallFront:init(newAttri)
   frame.w, frame.h = WALL_META.w, WALL_META.h
   self.quad2 = love.graphics.newQuad(frame.x, frame.y, frame.w, frame.h, SPRITE_SHEET:getDimensions())
 
-  local hitbox = { width = self.width, height = self.height/2-20, x = self.x, }
-  hitbox.y = self.y + self.height - hitbox.height
-  gameWorld:add(self, hitbox.x, hitbox.y, hitbox.width, hitbox.height)
+  self.width = self.visible.width
+  self.height = self.visible.height/2-10
+  self.x = self.visible.x
+  self.y = self.visible.y + self.visible.height - self.height
+  gameWorld:add(self, self.x, self.y, self.width, self.height)
 
 end
 
@@ -32,15 +35,15 @@ function WallFront:update(dt) end
 
 function WallFront:render()
   love.graphics.setColor(COLORS.white)
-  love.graphics.draw(SPRITE_SHEET, self.quad1, self.x, self.y, 0, SCALE_FACTOR)
-  love.graphics.draw(SPRITE_SHEET, self.quad2, self.x, self.y-TILE_HEIGHT, 0, SCALE_FACTOR)
+  love.graphics.draw(SPRITE_SHEET, self.quad1, self.visible.x, self.visible.y, 0, SCALE_FACTOR)
+  love.graphics.draw(SPRITE_SHEET, self.quad2, self.visible.x, self.visible.y-TILE_HEIGHT, 0, SCALE_FACTOR)
 
   -- for debug
   if gDebug then
     love.graphics.rectangle("line", self.x, self.y, self.width, self.height)
 
     local x, y = love.mouse.getPosition()
-    if x > self.x and x < self.x + self.width and y > self.y and y < self.y + self.height then
+    if x > self.visible.x and x < self.visible.x + self.visible.width and y > self.visible.y and y < self.visible.y + self.visible.height then
       love.graphics.setFont(FONTS.verySmall)
       love.graphics.print(tostring(self.type), 0, 500)
     end

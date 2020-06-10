@@ -15,7 +15,7 @@ function Player:init(newAttri)
   end
   self.weaponType = attri.weaponType or "knife"
 
-  self.width = (PLAYER_META.width-5)*SCALE_FACTOR
+  self.width = PLAYER_META.width*SCALE_FACTOR
   self.height = 7*SCALE_FACTOR
 
   -- for movement

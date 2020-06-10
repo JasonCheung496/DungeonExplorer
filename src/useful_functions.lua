@@ -52,7 +52,7 @@ end
 ---------------------------------------------------------------------------------------------------------
 --handle rotation
 function rotate(x, y, width, height, angle)
-  -- rotate rectangle (x, y, width, height) with angle clockwise about its bottom-right corner
+  -- rotate rectangle (x, y, width, height) angle clockwise about its bottom-right corner
   -- return x, y (top-left corner of the rectangle) after rotation
   local r = math.sqrt(math.pow(width, 2) + math.pow(height, 2))
   local theta = math.atan2(height, width)
@@ -139,20 +139,18 @@ end
 ---------------------------------------------------------------------------------------------------------
 -- for updating camera
 function updateCamera(cam, push)
-  -- left border = 300
-  -- right border = GAME_WIDTH/3*2
-  -- up border = 100
-  -- down border = GAME_HEIGHT/3*2
+  local border = { left = 500, right = 1000, up = 300, down = 500 }
+
   -- push going beyond the border will push the camera
-  if push.x + cam.x > GAME_WIDTH/3*2 then
-    cam.x = -(push.x - GAME_WIDTH/3*2)
-  elseif push.x + cam.x < 300 then
-    cam.x = -(push.x - 300)
+  if push.x + cam.x < border.left then
+    cam.x = -(push.x - border.left)
+  elseif push.x + cam.x > border.right then
+    cam.x = -(push.x - border.right)
   end
-  if push.y + cam.y > GAME_HEIGHT/3*2 then
-    cam.y = -(push.y - GAME_HEIGHT/3*2)
-  elseif push.y + cam.y < 100 then
-    cam.y = -(push.y - 100)
+  if push.y + cam.y < border.up then
+    cam.y = -(push.y - border.up)
+  elseif push.y + cam.y > border.down then
+    cam.y = -(push.y - border.down)
   end
 
 end

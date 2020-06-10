@@ -45,7 +45,7 @@ function PlayState:update(dt)
   end
 
   items = gameWorld:getItems() -- for render(), in case anything is removed in update()
-  table.sort(items, renderOrder) -- draw items according to y-coordinate, for more logical visual
+  table.sort(items, renderOrder) -- draw items according to renderOrder()
 
   updateCamera(screenScroll, player)
 
@@ -60,7 +60,7 @@ function PlayState:render()
     love.graphics.print(string.format("screenScroll.x:%d", screenScroll.x), 800, 10)
     love.graphics.print(string.format("screenScroll.y:%d", screenScroll.y), 800, 50)
   end
-  
+
   love.graphics.translate(screenScroll.x, screenScroll.y)
 
 
